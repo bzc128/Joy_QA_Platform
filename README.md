@@ -1,4 +1,4 @@
-# Joy_QA_Platform
+# Joy_QA_Platform（目前已经停止维护！）
 基于HttpRunner、Locust、Django Web框架的接口功能测试/压力测试/监控平台
 
 ## Design Philosophy
@@ -76,13 +76,19 @@ Joy_QA_Platform-QA测试平台基于Django搭建，内嵌*httprunner*（用于�
   命令行窗口切换到项目根目录，执行Django相关命令生成表结构,请查看数据库，确认表结构正确创建
   frame -> ApiManager
 ```
-  python manage.py makemigrations
-  python manage.py migrate
+  分应用先后执行 makemigrations和migrate --- 重要！！！
+  python manage.py makemigrations frame
+  python manage.py makemigrations ApiManager
+  python manage.py migrate frame
+  python manage.py migrate ApiManager
 ```
 11. 启动项目 在项目根目录执行命令
 ```
   python manage.py runserver 0.0.0.0:8000
 ```
+  FAQ:
+    1、https://stackoverflow.com/questions/50346326/programmingerror-relation-django-session-does-not-exist/50346820
+    
 12. 启动Celery，用于执行用例任务
   在项目根目录执行命令
 ```
@@ -140,3 +146,4 @@ Joy_QA_Platform-QA测试平台基于Django搭建，内嵌*httprunner*（用于�
 5. Nginx配置注意事项：
 
         主、从机之间的压测用例等文件同步使用了Linux的wget功能，并依赖Nginx的权限控制功能保证文件安全性，请合理配置私密文件相关Nginx代理的权限。
+        
